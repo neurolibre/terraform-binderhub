@@ -4,6 +4,8 @@ packages:
 
 runcmd:
   # NFS data
+  - admin_home=${base_homedir:-/home}/${admin_user}
+  - [ ${admin_user} = "root" ] && admin_home=/root
   - mkdir -p /DATA
   - echo "192.168.73.25:/DATA      /DATA      nfs rw,noatime,nolock,hard,tcp 0 0" >> /etc/fstab
   - mount -a
@@ -22,17 +24,17 @@ runcmd:
   - cat /tmp/kubeadm-bootstrap/.bashrc >> /home/${admin_user}/.bashrc
   # ssh config for nodes
   # make sure that k8s node is ready, and enable easy ssh
-  - su ${admin_user} -c "touch /home/${admin_user}/.ssh/config"
-  - mv /tmp/kubeadm-bootstrap/add_nodes.bash /home/${admin_user}/
-  - chmod u+x /home/${admin_user}/add_nodes.bash
-  - su ${admin_user} -c "/home/${admin_user}/add_nodes.bash ${nb_nodes}"
+  - su ${admin_user} -c "touch ${admin_home}/.ssh/config"
+  - mv /tmp/kubeadm-bootstrap/add_nodes.bash ${admin_home}/
+  - chmod u+x ${admin_home}/add_nodes.bash
+  - su ${admin_user} -c "${admin_home}/add_nodes.bash ${nb_nodes}"
   # Configure docker registry
-  - echo "" >> /home/${admin_user}/.ssh/config;
-  - echo "Host registry" >> /home/${admin_user}/.ssh/config;
-  - echo "        HostName "${docker_registry} >> /home/${admin_user}/.ssh/config;
-  - echo "        User "${admin_user} >> /home/${admin_user}/.ssh/config; 
+  - echo "" >> ${admin_home}/.ssh/config;
+  - echo "Host registry" >> ${admin_home}/.ssh/config;
+  - echo "        HostName "${docker_registry} >> ${admin_home}/.ssh/config;
+  - echo "        User "${admin_user} >> ${admin_home}/.ssh/config; 
   - su ${admin_user} -c "sudo docker login ${docker_registry} --username ${docker_id} --password ${docker_password}"
   - while [ ! -d /var/lib/kubelet/ ]; do sleep 1; done; 
-  - cp /home/${admin_user}/.docker/config.json /var/lib/kubelet/
+  - cp ${admin_home}/.docker/config.json /var/lib/kubelet/
   # creating flag to say that master configuration finished
   - touch /shared/k8s-initialized

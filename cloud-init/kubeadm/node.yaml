@@ -2,6 +2,8 @@ packages:
   - nfs-common
 
 runcmd:
+  - admin_home=${base_homedir:-/home}/${admin_user}
+  - [ ${admin_user} = "root" ] && admin_home=/root
   # NFS
   - mkdir -p /shared
   - echo "${master_ip}:/shared      /shared      nfs rw,noatime,nolock,hard,tcp 0 0" >> /etc/fstab
@@ -14,4 +16,4 @@ runcmd:
   # authorizing docker
   - su ${admin_user} -c "sudo docker login ${docker_registry} --username ${docker_id} --password ${docker_password}"
   - while [ ! -d /var/lib/kubelet/ ]; do sleep 1; done; 
-  - cp /home/${admin_user}/.docker/config.json /var/lib/kubelet/
+  - cp ${admin_home}/.docker/config.json /var/lib/kubelet/
