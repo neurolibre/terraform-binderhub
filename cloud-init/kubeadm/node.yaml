@@ -12,6 +12,9 @@ runcmd:
   - echo "while [ ! -f /shared/kubeadm-join.bash ]; do sleep 1; done; sudo bash /shared/kubeadm-join.bash" >> /tmp/install.sh
   - su ${admin_user} -c "/tmp/install.sh"
   # authorizing docker
-  - su ${admin_user} -c "sudo docker login ${docker_registry} --username ${docker_id} --password ${docker_password}"
+  #- su ${admin_user} -c "sudo docker login ${docker_registry} --username ${docker_id} --password ${docker_password}"
+  - sudo groupadd docker
+  - sudo usermod -aG docker ${admin_user}
+  - su ${admin_user} -c "docker login ${docker_registry} --username ${docker_id} --password ${docker_password}"
   - while [ ! -d /var/lib/kubelet/ ]; do sleep 1; done; 
   - cp /home/${admin_user}/.docker/config.json /var/lib/kubelet/

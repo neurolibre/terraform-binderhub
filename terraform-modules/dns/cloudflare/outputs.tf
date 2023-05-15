@@ -1,3 +1,4 @@
-output domain {
-  value = "${var.domain}"
+output "domain" {
+  value = var.domain
 }
+

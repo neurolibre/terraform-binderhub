@@ -11,7 +11,7 @@ CONFIG_FILE="content/_config.yml"
 BOOK_DST_PATH="/mnt/books/${USER_NAME}/${PROVIDER_NAME}/${REPO_NAME}/${COMMIT_REF}"
 BOOK_BUILT_FLAG="${BOOK_DST_PATH}/successfully_built"
 BOOK_BUILD_LOG="${BOOK_DST_PATH}/book-build.log"
-BINDERHUB_URL="https://binder.conp.cloud"
+BINDERHUB_URL="https://test.conp.cloud"
 BOOK_CACHE_PATH=${BOOK_DST_PATH}"/_build/.jupyter_cache"
 
 # checking if book build is necessary

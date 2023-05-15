@@ -1,6 +1,7 @@
 variable "ip" {
   description = "ip address of the master"
 }
+
 variable "domain" {
   description = "Domain name"
 }
@@ -31,7 +32,7 @@ variable "binder_version" {
 
 variable "docker_registry" {
   description = "Docker registry url"
-  default = "docker.io"
+  default     = "docker.io"
 }
 
 variable "docker_id" {
@@ -41,3 +42,4 @@ variable "docker_id" {
 variable "docker_password" {
   description = "Docker hub password"
 }
+

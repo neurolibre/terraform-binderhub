@@ -8,7 +8,7 @@ jupyterhub:
   ingress:
     enabled: true
     hosts:
-      - binder.conp.cloud
+      - test.conp.cloud
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
@@ -16,7 +16,7 @@ jupyterhub:
     tls:
       - secretName: binder-conp-cloud-tls
         hosts:
-          - binder.conp.cloud
+          - test.conp.cloud
   #https://discourse.jupyter.org/t/pre-building-images-on-binderhub/4325/4
   prePuller:
     continuous:
@@ -76,7 +76,7 @@ jupyterhub:
     lifecycleHooks:
       postStart:
         exec:
-          command: ["/bin/sh", "-c", "/usr/local/share/repo2data.bash; /usr/local/share/jb_build.bash"]   
+          command: ["/bin/sh", "-c", "/usr/local/share/repo2data.bash; /usr/local/share/jb_build.bash"]
 
 # BinderHub config
 config:
@@ -93,7 +93,7 @@ config:
       - ^shishirchoudharygic/mltraining.*
       - ^hmharshit/mltraining.*
   BinderHub:
-    hub_url: https://binder.conp.cloud/jupyter
+    hub_url: https://test.conp.cloud/jupyter
     use_registry: true
     image_prefix: binder-registry.conp.cloud/binder-registry.conp.cloud/binder-
 
@@ -103,7 +103,7 @@ service:
 ingress:
   enabled: true
   hosts:
-    - binder.conp.cloud
+    - test.conp.cloud
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
@@ -114,4 +114,4 @@ ingress:
   tls:
     - secretName: binder-conp-cloud-tls
       hosts: 
-        - binder.conp.cloud
+        - test.conp.cloud

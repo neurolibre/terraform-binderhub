@@ -8,7 +8,7 @@ variable "instance_volume_size" {
 
 variable "ssh_authorized_keys" {
   description = "List of public SSH keys that can connect to the cluster"
-  type    = "list"
+  type        = list(string)
 }
 
 variable "os_flavor_node" {
@@ -44,7 +44,7 @@ variable "cc_private_network" {
 
 variable "docker_registry" {
   description = "Docker registry url"
-  default = "docker.io"
+  default     = "docker.io"
 }
 
 variable "docker_id" {
@@ -54,3 +54,20 @@ variable "docker_id" {
 variable "docker_password" {
   description = "Docker hub password"
 }
+
+variable "public_network" {
+  default  = "Public-Network"
+}
+
+variable "volume_uuid_1" {
+  description  = "Manual volume master"
+}
+
+variable "volume_uuid_2" {
+  description  = "Manual volume node"
+}
+
+variable "image_id" {
+  description  = "Manual image id"
+}
+
